@@ -1,0 +1,24 @@
+services:
+    mysql:
+        image: mysql:8.4
+        container_name: mysql_container
+        environment:
+            MYSQL_ROOT_PASSWORD: 'root'
+            MYSQL_DATABASE: 'Panfilenko'
+        ports:
+            - "3306:3306"
+        volumes:
+            - mysql_data:/var/lib/mysql
+
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin:latest
+        container_name: phpmyadmin_container
+        environment:
+            PMA_HOST: mysql
+        ports:
+            - "8080:80"
+        depends_on:
+            - mysql
+
+volumes:
+    mysql_data:
